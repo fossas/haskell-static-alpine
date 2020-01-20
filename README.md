@@ -6,7 +6,7 @@ The image available at `quay.io/fossa/haskell-static-alpine`
 
 Example usage (inside project directory):
 ```sh
-cabal install -O2 --enable-executable-static --enable-executable-stripping --install-method=copy --installdir=result
+cabal build -O2 --enable-executable-static
 ```
 
-This will place built executables in `result/`
+Make sure to run `strip` the resulting binary
