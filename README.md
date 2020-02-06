@@ -1,6 +1,6 @@
 # haskell-static-alpine
 
-simple alpine-based docker image for building static haskell executables. It supplies GHC 8.6.5 and cabal-install v3
+an alpine-based docker image to assist with building static haskell executables. It supplies GHC 8.8.2 and cabal-install v3
 
 The image available at `quay.io/fossa/haskell-static-alpine`
 
