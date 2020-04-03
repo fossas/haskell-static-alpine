@@ -23,9 +23,9 @@
 
 FROM alpine:3 as bootstrap
 # Install deps for:
-# - ghcup/ghc: curl gcc g++ gmp-dev ncurses-dev libffi-dev make xz tar perl zlib-dev
+# - ghcup/ghc: curl gcc g++ gmp-dev ncurses-dev libffi-dev make xz tar perl zlib-dev zlib-static
 # - HACK(bootstrap-cabal-3): cabal
-RUN apk add cabal curl gcc g++ gmp-dev ncurses-dev libffi-dev make xz tar perl zlib-dev
+RUN apk add cabal curl gcc g++ gmp-dev ncurses-dev libffi-dev make xz tar perl zlib-dev zlib-static
 
 # Install ghcup/ghc
 RUN ( mkdir -p ~/.ghcup/bin && curl https://gitlab.haskell.org/haskell/ghcup/raw/master/ghcup > ~/.ghcup/bin/ghcup && chmod +x ~/.ghcup/bin/ghcup) && echo "ghcup installed"
