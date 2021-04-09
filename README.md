@@ -16,7 +16,7 @@ This Docker image uses the Alpine distribution of GHC, which will statically lin
 
 ### Pulling the image
 
-This image is automatically published on Docker Hub. To pull it, run:
+This image is automatically published on [Docker Hub](https://hub.docker.com/r/fossa/haskell-static-alpine). To pull it, run:
 
 ```sh
 docker pull fossa/haskell-static-alpine:$VERSION
