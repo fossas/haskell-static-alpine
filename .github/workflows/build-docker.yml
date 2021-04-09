@@ -1,0 +1,29 @@
+name: Build images
+
+on: [push]
+
+env:
+  IMAGE_NAME: fossa/haskell-static-alpine
+
+jobs:
+  # Push image to Docker Hub using `fossabot` account.
+  # See also https://docs.docker.com/docker-hub/builds/
+  build-and-push:
+    name: ${{ matrix.ghc-version }}-build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ghc-version: ['ghc-8.8.2', 'ghc-8.10.3', 'ghc-8.10.4']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker build ./${{ matrix.ghc-version }} --tag $IMAGE_NAME:${{ matrix.ghc-version }}
+
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u fossabot --password-stdin
+
+      - name: Push image
+        run: docker push $IMAGE_NAME:${{ matrix.ghc-version }}

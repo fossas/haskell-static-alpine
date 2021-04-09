@@ -1,12 +1,40 @@
 # haskell-static-alpine
 
-an alpine-based docker image to assist with building static haskell executables. It supplies GHC 8.8.2 and cabal-install v3
+`haskell-static-alpine` is an Alpine-based Docker image that contains GHC and `cabal`, for building static Haskell executables.
 
-The image available at `quay.io/fossa/haskell-static-alpine`
+## Why do I need this?
 
-Example usage (inside project directory):
+Normally, Haskell binaries are dynamically linked, and require `glibc` and `gmp` at runtime. These libraries are unavailable in some environments, such as Alpine Docker images.
+
+(Note that _even if_ you specify `--enable-executable-static`, GHC will still dynamically link against `glibc`, much like `cgo`.)
+
+If you deploy Haskell binaries in these environments, you need a fully statically linked executable. You can construct such an executable using this Docker image.
+
+This Docker image uses the Alpine distribution of GHC, which will statically link generated executables against `musl` when provided `--enable-executable-static`.
+
+## Usage
+
+### Pulling the image
+
+This image is automatically published on Docker Hub. To pull it, run:
+
 ```sh
-cabal build -O2 --enable-executable-static
+docker pull fossa/haskell-static-alpine:ghc-8.8
 ```
 
-Make sure to run `strip` the resulting binary
+Supported versions are:
+
+- `ghc-8.8`
+- `ghc-8.10`
+
+### Building your executable
+
+You should use this container as a base image for your own build containers.
+
+Within a container, run:
+
+```sh
+cabal build --enable-executable-static
+```
+
+This will build a statically linked Haskell binary. Make sure to `strip` the binary afterwards to reduce size.
