@@ -19,13 +19,14 @@ This Docker image uses the Alpine distribution of GHC, which will statically lin
 This image is automatically published on Docker Hub. To pull it, run:
 
 ```sh
-docker pull fossa/haskell-static-alpine:ghc-8.8
+docker pull fossa/haskell-static-alpine:$VERSION
 ```
 
 Supported versions are:
 
-- `ghc-8.8`
-- `ghc-8.10`
+- `ghc-8.8.2`
+- `ghc-8.10.3`
+- `ghc-8.10.4`
 
 ### Building your executable
 
