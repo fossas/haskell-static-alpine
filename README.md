@@ -1,4 +1,6 @@
 # haskell-static-alpine
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffossas%2Fhaskell-static-alpine.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffossas%2Fhaskell-static-alpine?ref=badge_shield)
+
 
 `haskell-static-alpine` is an Alpine-based Docker image that contains GHC and `cabal`, for building static Haskell executables.
 
@@ -39,3 +41,7 @@ cabal build --enable-executable-static
 ```
 
 This will build a statically linked Haskell binary. Make sure to `strip` the binary afterwards to reduce size.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffossas%2Fhaskell-static-alpine.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffossas%2Fhaskell-static-alpine?ref=badge_large)
