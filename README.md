@@ -27,6 +27,8 @@ Supported versions are:
 - `ghc-8.8.2`
 - `ghc-8.10.3`
 - `ghc-8.10.4`
+- `ghc-8.10.7`
+- `ghc-9.0.2`
 
 ### Building your executable
 
