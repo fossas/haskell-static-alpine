@@ -11,6 +11,8 @@ RUN mkdir -p ~/.ghcup/bin && curl https://downloads.haskell.org/~ghcup/x86_64-li
 ENV PATH="/root/.cabal/bin:/root/.ghcup/bin:$PATH"
 
 RUN ghcup install ghc 8.10.4
-
 RUN ghcup set ghc 8.10.4
 RUN ghcup install cabal
+
+RUN apk --no-cache add sudo
+ENV USER=guest
