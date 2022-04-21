@@ -6,7 +6,11 @@ FROM alpine:edge
 # - random haskell libraries with cbits (basement): binutils-gold
 RUN apk --no-cache add binutils-gold curl gcc g++ git gmp-dev ncurses-dev ncurses-static libffi-dev make xz tar perl zlib-dev zlib-static
 
-ENV USER=guest
+ENV USER=fossa
+RUN adduser -D $USER \
+        && echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
+        && chmod 0440 /etc/sudoers.d/$USER
+USER $USER
 
 # manual installation of ghcup -- the install script doesn't work headless
 RUN mkdir -p ~/.ghcup/bin && curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > ~/.ghcup/bin/ghcup && chmod +x ~/.ghcup/bin/ghcup
