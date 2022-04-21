@@ -8,7 +8,7 @@ RUN apk --no-cache add binutils-gold curl gcc g++ git gmp-dev ncurses-dev ncurse
 
 ENV USER=fossa
 RUN adduser -D $USER \
-        && mkdir /etc/sudoers.d
+        && mkdir /etc/sudoers.d \
         && echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
         && chmod 0440 /etc/sudoers.d/$USER
 USER $USER
