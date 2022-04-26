@@ -14,3 +14,6 @@ RUN ghcup install ghc 9.0.2
 
 RUN ghcup set ghc 9.0.2
 RUN ghcup install cabal
+
+RUN apk --no-cache add sudo
+ENV USER=guest
