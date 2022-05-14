@@ -4,7 +4,7 @@ FROM alpine:edge
 # - repo clone: git
 # - static builds: zlib-static HACK(broken-ghc-musl): ncurses-static
 # - random haskell libraries with cbits (basement): binutils-gold
-RUN apk --no-cache add binutils-gold curl gcc g++ git gmp-dev ncurses-dev ncurses-static libffi-dev make xz tar perl zlib-dev zlib-static
+RUN apk --no-cache add binutils-gold curl gcc g++ git gmp-dev ncurses-dev ncurses-static libffi-dev make xz tar perl zlib-dev zlib-static bash
 
 # manual installation of ghcup -- the install script doesn't work headless
 RUN mkdir -p ~/.ghcup/bin && curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > ~/.ghcup/bin/ghcup && chmod +x ~/.ghcup/bin/ghcup
