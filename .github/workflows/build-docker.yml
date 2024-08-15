@@ -31,4 +31,5 @@ jobs:
         run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u fossabot --password-stdin
 
       - name: Push image
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: docker push $IMAGE_NAME:${{ matrix.ghc-version }}
