@@ -11,9 +11,10 @@ RUN apk --no-cache add binutils-gold curl gcc g++ git gmp-dev ncurses-dev ncurse
 # Install system deps for FOSSA CLI:
 RUN apk --no-cache add bash xz-libs xz-dev bzip2-dev bzip2-static upx curl jq
 
-# manual installation of ghcup -- the install script doesn't work headless
-RUN mkdir -p ~/.ghcup/bin && curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > ~/.ghcup/bin/ghcup && chmod +x ~/.ghcup/bin/ghcup
+ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
+ENV BOOTSTRAP_HASKELL_MINIMAL=1
 ENV PATH="/root/.cabal/bin:/root/.ghcup/bin:$PATH"
+RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
 RUN ghcup install ghc 9.8.2
 
