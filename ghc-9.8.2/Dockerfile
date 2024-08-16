@@ -29,6 +29,10 @@ RUN <<EOF
     cd /tmp/ghc
     ./configure --prefix="$HOME/.ghcup" && make install && rm -rf /tmp/ghc
   fi
+
+  # Docs take up a lot of space in the image and aren't really necessary.
+  rm -rf "$HOME/.ghcup/share/doc"
+
 EOF
 
 # Install cabal
@@ -41,7 +45,6 @@ RUN <<EOF
     rm "$HOME/.ghcup/bin/plan.json"
   fi
 EOF
-
 
 # Sets USER environment to overcome issue, as described in:
 # https://github.com/cachix/install-nix-action/issues/122
