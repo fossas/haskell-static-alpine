@@ -44,7 +44,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         uses: docker/login-action@v3
         with:
-          username: ${{ fossabot }}
+          username: fossabot
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Build and push
