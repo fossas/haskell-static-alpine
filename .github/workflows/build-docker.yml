@@ -53,7 +53,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           file: ${{ format('./{0}', matrix.ghc-version) }}
           push: false # ${{ github.ref == 'refs/heads/master' }}
-          tags: ${{ format('{0}:{1}', env.IMAGE_NAME, matrix.ghc-version }}
+          tags: ${{ format('{0}:{1}', env.IMAGE_NAME, matrix.ghc-version) }}
 
       # - name: Log into registry
       #   if: ${{ github.ref == 'refs/heads/master' }}
