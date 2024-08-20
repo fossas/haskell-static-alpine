@@ -14,23 +14,40 @@ jobs:
 
     strategy:
       matrix:
-        ghc-version: 
-          - ghc-8.8.4 
-          - ghc-8.10.7
-          - ghc-9.0.2
-          - ghc-9.4.7
-          - ghc-9.4.8
-          - ghc-9.8.2
+        include:
+          - ghc-version: ghc-8.8.4
+            platform: linux/amd64
+          - ghc-version: ghc-8.10.7
+            platform: linux/amd64
+          - ghc-version: ghc-9.0.2
+            platform: linux/amd64
+          - ghc-version: ghc-9.4.7
+            platform: linux/amd64
+          - ghc-version: ghc-9.4.8
+            platform: linux/amd64
+          - ghc-version: ghc-9.8.2
+            platform: linux/amd64,linux/arm64
 
     steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker build ./${{ matrix.ghc-version }} --tag $IMAGE_NAME:${{ matrix.ghc-version }}
-
-      - name: Log into registry
-        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u fossabot --password-stdin
-
-      - name: Push image
+      - name: Login to Docker Hub
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: docker push $IMAGE_NAME:${{ matrix.ghc-version }}
+        uses: docker/login-action@v3
+        with:
+          username: fossabot
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          platforms: ${{ matrix.platform }}
+          file: ${{ format('./{0}/Dockerfile', matrix.ghc-version) }}
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: ${{ format('{0}:{1}', env.IMAGE_NAME, matrix.ghc-version) }}
