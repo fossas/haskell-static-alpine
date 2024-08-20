@@ -37,9 +37,6 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      # - name: Build image
-      #   run: docker build ./${{ matrix.ghc-version }} --platform ${{ matrix.platform }} --tag $IMAGE_NAME:${{ matrix.ghc-version }}
-
       - name: Login to Docker Hub
         if: ${{ github.ref == 'refs/heads/master' }}
         uses: docker/login-action@v3
@@ -52,13 +49,5 @@ jobs:
         with:
           platforms: ${{ matrix.platform }}
           file: ${{ format('./{0}/Dockerfile', matrix.ghc-version) }}
-          push: false # ${{ github.ref == 'refs/heads/master' }}
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: ${{ format('{0}:{1}', env.IMAGE_NAME, matrix.ghc-version) }}
-
-      # - name: Log into registry
-      #   if: ${{ github.ref == 'refs/heads/master' }}
-      #   run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u fossabot --password-stdin
-
-      # - name: Push image
-      #   if: ${{ github.ref == 'refs/heads/master' }}
-      #   run: docker push $IMAGE_NAME:${{ matrix.ghc-version }}
