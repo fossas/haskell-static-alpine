@@ -14,21 +14,28 @@ jobs:
 
     strategy:
       matrix:
-        ghc-version: 
-          - ghc-8.8.4 
-          - ghc-8.10.7
-          - ghc-9.0.2
-          - ghc-9.4.7
-          - ghc-9.4.8
-          - ghc-9.8.2
+        include:
+          - ghc-version: ghc-8.8.4
+            platform: linux/amd64
+          - ghc-version: ghc-8.10.7
+            platform: linux/amd64
+          - ghc-version: ghc-9.0.2
+            platform: linux/amd64
+          - ghc-version: ghc-9.4.7
+            platform: linux/amd64
+          - ghc-version: ghc-9.4.8
+            platform: linux/amd64
+          - ghc-version: ghc-9.8.2
+            platform: linux/amd64,linux/arm64
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build ./${{ matrix.ghc-version }} --tag $IMAGE_NAME:${{ matrix.ghc-version }}
+        run: docker build ./${{ matrix.ghc-version }} --platform ${{ matrix.platform }} --tag $IMAGE_NAME:${{ matrix.ghc-version }}
 
       - name: Log into registry
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u fossabot --password-stdin
 
       - name: Push image

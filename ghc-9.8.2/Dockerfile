@@ -15,6 +15,11 @@ ENV GHC_VERSION="9.8.2"
 
 ENV PATH="/root/.cabal/bin:/root/.ghcup/bin:$PATH"
 
+# There aren't official builds of ghcup that are built against musl for aarch64.
+# So the following two steps do the install manually on that platform.
+# They manually do the same steps that ghcup would.
+# ghcup should have support for this soon: https://github.com/haskell/ghcup-hs/issues/1012#issuecomment-2294829976
+# When that happens, you should be able to remove the 'else' branches and have the install work for all platforms.
 RUN <<EOF
   if [ $(uname -m) != "aarch64" ] ; then
     export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
@@ -40,7 +45,7 @@ RUN <<EOF
   if [ $(uname -m) != "aarch64" ] ; then
     ghcup install cabal 3.10.3.0
   else
-    curl https://downloads.haskell.org/~cabal/cabal-install-3.12.1.0/cabal-install-3.12.1.0-aarch64-linux-alpine3_18.tar.xz | tar -xJC "$HOME/.ghcup/bin/"
+    curl https://downloads.haskell.org/~ghcup/unofficial-bindists/cabal/3.10.3.0/cabal-install-3.10.3.0-aarch64-alpine3_20.tar.xz | tar -xJC "$HOME/.ghcup/bin/"
     chmod 755 "$HOME/.ghcup/bin/cabal"
     rm "$HOME/.ghcup/bin/plan.json"
   fi
