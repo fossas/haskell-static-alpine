@@ -51,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          file: ${{ format('./{0}', matrix.ghc-version) }}
+          file: ${{ format('./{0}/Dockerfile', matrix.ghc-version) }}
           push: false # ${{ github.ref == 'refs/heads/master' }}
           tags: ${{ format('{0}:{1}', env.IMAGE_NAME, matrix.ghc-version) }}
 
