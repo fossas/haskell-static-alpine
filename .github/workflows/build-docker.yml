@@ -27,6 +27,8 @@ jobs:
             platform: linux/amd64
           - ghc-version: ghc-9.8.2
             platform: linux/amd64,linux/arm64
+          - ghc-version: ghc-9.8.4
+            platform: linux/amd64,linux/arm64
 
     steps:
       - name: Set up QEMU
